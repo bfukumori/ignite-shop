@@ -32,7 +32,7 @@
 </p>
 
 <div align="center"> 
-	<img alt="ignite-shop" title="#ignite-shop" src="./.github/banner.PNG" />
+	<img alt="ignite-shop" title="#ignite-shop" src="./.github/banner.png" />
 </div>
 
 ## About
