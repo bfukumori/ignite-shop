@@ -1,33 +1,23 @@
-import { createStitches } from "@stitches/react";
+import { createStitches } from '@stitches/react';
 
 export const { styled, getCssText, globalCss } = createStitches({
   theme: {
-    fonts: {
-      Roboto: "Roboto",
+    colors: {
+      white: '#FFFFFF',
+
+      gray900: '#121214',
+      gray800: '#202024',
+      gray300: '#C4C4CC',
+      gray100: '#E1E1E6',
+
+      green500: '#00875F ',
+      green300: '#00B37E',
     },
     fontSizes: {
-      18: "18px",
-      20: "20px",
-      24: "24px",
-      32: "32px",
-    },
-    fontWeights: {
-      regular: 400,
-      bold: 700,
-    },
-    lineHeights: {
-      160: 1.6,
-    },
-    colors: {
-      white: "#FFFFFF",
-
-      background: "#121214",
-      elements: "#202024",
-      text: "#C4C4CC",
-      title: "#E1E1E6",
-
-      green: "#00875F ",
-      greenLight: "#00B37E",
+      md: '1.125rem',
+      lg: '1.25rem',
+      xl: '1.5rem',
+      '2xl': '2rem',
     },
   },
 });
