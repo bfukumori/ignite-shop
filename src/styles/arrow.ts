@@ -17,12 +17,12 @@ export const ArrowContainer = styled('button', {
   top: 328,
   transform: 'translateY(-50%)',
 
-  '&:hover': {
+  '&:not(:disabled):hover': {
     color: '$gray100',
   },
 
   '&:disabled': {
-    color: '$gray800',
+    opacity: 0.3,
     cursor: 'default',
   },
 });
