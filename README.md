@@ -50,6 +50,7 @@ Project developed during the ReactJS Ignite Course from [Rocketseat](https://www
 - [x] Responsivity
 - [x] Implement cart
 - [ ] Light/Dark theme
+- [ ] Add webhooks
 ---
 
 ## How it works
