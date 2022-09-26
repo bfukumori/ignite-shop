@@ -7,6 +7,12 @@ export const ProductContainer = styled('main', {
   gap: '4rem',
   maxWidth: 1180,
   margin: '0 auto',
+  padding: '2rem',
+
+  '@bp2': {
+    gridTemplateColumns: '1fr',
+    gap: '2rem',
+  },
 });
 
 export const ImageContainer = styled('div', {
@@ -20,8 +26,13 @@ export const ImageContainer = styled('div', {
   alignItems: 'center',
   justifyContent: 'center',
 
+  '@bp2': {
+    maxWidth: 'initial',
+  },
+
   img: {
     objectFit: 'cover',
+    maxWidth: '100%',
   },
 });
 
@@ -46,6 +57,11 @@ export const ProductDetails = styled('div', {
     fontSize: '$md',
     lineHeight: 1.6,
     color: '$gray300',
+
+    '@bp2': {
+      marginTop: '1.5rem',
+      marginBottom: '1.5rem',
+    },
   },
 
   button: {

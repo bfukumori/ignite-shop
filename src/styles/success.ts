@@ -7,6 +7,7 @@ export const SuccessContainer = styled('main', {
   justifyContent: 'center',
   height: 656,
   margin: '0 auto',
+  padding: '0 2rem',
 
   h1: {
     fontSize: '$2xl',
@@ -37,18 +38,28 @@ export const SuccessContainer = styled('main', {
 });
 
 export const ImageContainer = styled('div', {
-  width: '100%',
-  maxWidth: 130,
-  height: 145,
+  width: 140,
+  height: 140,
   background: 'linear-gradient(180deg, #1EA483 0%, #7465D4 100%)',
-  borderRadius: 8,
+  borderRadius: '9999px',
+  overflow: 'hidden',
   padding: '0.25rem',
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
   marginTop: '4rem',
+  boxShadow: '0 0 60px 0 rgba(0, 0, 0, 0.8)',
+
+  '& + &': {
+    marginLeft: '-40px',
+  },
 
   img: {
+    width: '100%',
     objectFit: 'cover',
   },
+});
+
+export const ImagesWrapper = styled('div', {
+  display: 'flex',
 });

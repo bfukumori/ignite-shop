@@ -1,45 +1,81 @@
-import { useKeenSlider } from 'keen-slider/react';
+import { useKeenSlider, KeenSliderPlugin } from 'keen-slider/react';
 import 'keen-slider/keen-slider.min.css';
 import { GetStaticProps } from 'next';
 import Link from 'next/link';
-import { useState } from 'react';
+import { FormEvent, useState } from 'react';
 import Stripe from 'stripe';
 import { stripe } from '../lib/stripe';
 import Image from 'next/future/image';
 import { Arrow } from '../components/Arrow';
 import { HomeContainer, Product } from '../styles/home';
 import Head from 'next/head';
+import { Cart } from '../components/Cart';
+import { useShoppingCart, formatCurrencyString } from 'use-shopping-cart';
 
-interface HomeProps {
-  products: {
-    id: string;
-    name: string;
-    imageUrl: string;
-    price: string;
-  }[];
+export interface IProduct {
+  id: string;
+  name: string;
+  image: string;
+  price: number;
+  description: string;
+  currency: string;
+  productId: string;
 }
 
+interface HomeProps {
+  products: IProduct[];
+}
+
+const AdaptiveHeight: KeenSliderPlugin = (slider) => {
+  function updateHeight() {
+    slider.container.style.height =
+      slider.slides[slider.track.details.rel].offsetHeight + 'px';
+  }
+  slider.on('created', updateHeight);
+  slider.on('slideChanged', updateHeight);
+};
+
 export default function Home({ products }: HomeProps) {
+  const { addItem } = useShoppingCart();
   const [currentSlide, setCurrentSlide] = useState(0);
   const [loaded, setLoaded] = useState(false);
-  const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>({
-    slides: {
-      perView: 3,
-      spacing: 48,
+  const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>(
+    {
+      initial: 0,
+      slides: {
+        perView: 2,
+        spacing: 48,
+      },
+
+      breakpoints: {
+        '(max-width:768px)': {
+          slides: {
+            perView: 1,
+            spacing: 48,
+          },
+        },
+      },
+      slideChanged(slider) {
+        setCurrentSlide(slider.track.details.rel);
+      },
+
+      created() {
+        setLoaded(true);
+      },
     },
-    slideChanged(slider) {
-      setCurrentSlide(slider.track.details.rel);
-    },
-    created() {
-      setLoaded(true);
-    },
-  });
+    [AdaptiveHeight]
+  );
 
   function handlePrev() {
     instanceRef.current?.prev();
   }
   function handleNext() {
     instanceRef.current?.next();
+  }
+
+  function handleAddItem(product: IProduct, e: FormEvent) {
+    e.preventDefault();
+    addItem(product);
   }
 
   return (
@@ -50,16 +86,24 @@ export default function Home({ products }: HomeProps) {
       <HomeContainer ref={sliderRef} className='keen-slider'>
         {products.map((product) => (
           <Link
-            href={`/product/${product.id}`}
-            key={product.id}
+            href={`/product/${product.productId}`}
+            key={product.productId}
             prefetch={false}
             passHref
           >
             <Product className='keen-slider__slide'>
-              <Image src={product.imageUrl} width={520} height={520} alt='' />
+              <Image src={product.image} width={520} height={520} alt='' />
               <footer>
-                <strong>{product.name}</strong>
-                <span>{product.price}</span>
+                <div>
+                  <strong>{product.name}</strong>
+                  <span>
+                    {formatCurrencyString({
+                      value: product.price,
+                      currency: product.currency,
+                    })}
+                  </span>
+                </div>
+                <Cart onClick={(e) => handleAddItem(product, e)} />
               </footer>
             </Product>
           </Link>
@@ -74,7 +118,9 @@ export default function Home({ products }: HomeProps) {
               onClick={handleNext}
               disabled={
                 currentSlide ===
-                instanceRef.current.track.details.slides.length - 3
+                instanceRef.current.track.details.slides.length -
+                  // @ts-ignore
+                  instanceRef.current.options.slides?.perView
               }
             />
           </>
@@ -92,13 +138,13 @@ export const getStaticProps: GetStaticProps = async () => {
   const products = response.data.map((product) => {
     const price = product.default_price as Stripe.Price;
     return {
-      id: product.id,
+      id: price.id,
       name: product.name,
-      imageUrl: product.images[0],
-      price: new Intl.NumberFormat('pt-BR', {
-        style: 'currency',
-        currency: 'BRL',
-      }).format(price.unit_amount! / 100),
+      image: product.images[0],
+      price: price.unit_amount,
+      description: product.description,
+      currency: price.currency,
+      productId: product.id,
     };
   });
 
