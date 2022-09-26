@@ -47,8 +47,8 @@ Project developed during the ReactJS Ignite Course from [Rocketseat](https://www
 
 - [ ] Authentication
 - [ ] Connect with a database
-- [ ] Responsivity
-- [ ] Implement cart
+- [x] Responsivity
+- [x] Implement cart
 - [ ] Light/Dark theme
 ---
 
@@ -59,6 +59,10 @@ Project developed during the ReactJS Ignite Course from [Rocketseat](https://www
 Before you begin, you will need to have the following tools installed on your machine:
 [Git](https://git-scm.com), [Node.js](https://nodejs.org/en/).
 In addition, it is good to have an editor to work with the code like [VSCode](https://code.visualstudio.com/)
+
+Create an account and configure these externals services:
+
+- [Stripe](https://stripe.com/)
 
 #### Running the web application (Frontend)
 
@@ -91,6 +95,9 @@ The following tools were used in the construction of the project:
 - **[PhosphorIcons](https://phosphoricons.com/)**
 - **[NextJS](https://nextjs.org/)**
 - **[Stitches](https://stitches.dev/)**
+- **[use-shopping-cart](https://useshoppingcart.com/)**
+- **[Stripe](https://stripe.com/)**
+- **[PhosphorIcons](https://phosphoricons.com/)**
 
 ---
 ## Author
