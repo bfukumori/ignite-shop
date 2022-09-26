@@ -23,13 +23,14 @@ export const SuccessContainer = styled('main', {
     lineHeight: 1.4,
   },
 
-  a: {
+  button: {
     marginTop: '5rem',
-    display: 'block',
     fontSize: '$lg',
     color: '$green500',
-    textDecoration: 'none',
+    border: 'none',
+    backgroundColor: 'transparent',
     fontWeight: 'bold',
+    cursor: 'pointer',
 
     '&:hover': {
       color: '$green300',

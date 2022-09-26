@@ -2,6 +2,7 @@ import { GetServerSideProps } from 'next';
 import Image from 'next/future/image';
 import Head from 'next/head';
 import Link from 'next/link';
+
 import Stripe from 'stripe';
 import { stripe } from '../lib/stripe';
 import {
@@ -9,6 +10,8 @@ import {
   SuccessContainer,
   ImagesWrapper,
 } from '../styles/success';
+import { useShoppingCart } from 'use-shopping-cart';
+import { useRouter } from 'next/router';
 
 interface SuccessProps {
   customerName: string;
@@ -16,6 +19,14 @@ interface SuccessProps {
 }
 
 export default function Success({ customerName, products }: SuccessProps) {
+  const { clearCart } = useShoppingCart();
+  const { push } = useRouter();
+
+  function handleBackToHome() {
+    clearCart();
+    push('/');
+  }
+
   return (
     <>
       <Head>
@@ -42,7 +53,7 @@ export default function Success({ customerName, products }: SuccessProps) {
           Uhuul <strong>{customerName}</strong>, sua compra já está a caminho da
           sua casa.
         </p>
-        <Link href='/'>Voltar ao catálogo</Link>
+        <button onClick={handleBackToHome}>Voltar ao catálogo</button>
       </SuccessContainer>
     </>
   );

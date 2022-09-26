@@ -19,8 +19,10 @@ import { Button } from './Button';
 import { useShoppingCart } from 'use-shopping-cart';
 import { CartEntry, formatCurrencyString } from 'use-shopping-cart/core';
 import { EmptyCart } from './EmptyCar';
+import { useState } from 'react';
 
 export function CartModal({ ...rest }) {
+  const [isLoading, setIsLoading] = useState(false);
   const {
     cartDetails,
     cartCount,
@@ -29,7 +31,6 @@ export function CartModal({ ...rest }) {
     incrementItem,
     decrementItem,
     removeItem,
-    clearCart,
   } = useShoppingCart();
 
   const products = Object.entries(cartDetails!)
@@ -38,8 +39,8 @@ export function CartModal({ ...rest }) {
 
   async function handleBuyProducts() {
     try {
+      setIsLoading(true);
       await redirectToCheckout();
-      clearCart();
     } catch (error: any) {
       switch (error.type) {
         case 'StripeCardError':
@@ -111,8 +112,11 @@ export function CartModal({ ...rest }) {
         </Value>
       </CartTotal>
       <ButtonContainer>
-        <Button disabled={cartCount === 0} onClick={handleBuyProducts}>
-          Finalizar compra
+        <Button
+          disabled={cartCount === 0 || isLoading}
+          onClick={handleBuyProducts}
+        >
+          {isLoading ? 'Processando o pedindo' : 'Finalizar compra'}
         </Button>
       </ButtonContainer>
     </CartModalContainer>
