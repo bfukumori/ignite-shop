@@ -98,7 +98,6 @@ The following tools were used in the construction of the project:
 - **[Stitches](https://stitches.dev/)**
 - **[use-shopping-cart](https://useshoppingcart.com/)**
 - **[Stripe](https://stripe.com/)**
-- **[PhosphorIcons](https://phosphoricons.com/)**
 
 ---
 ## Author
