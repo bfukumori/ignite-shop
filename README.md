@@ -43,14 +43,12 @@ Project developed during the ReactJS Ignite Course from [Rocketseat](https://www
 
 ---
 
-## Next Features
+## Features
 
-- [ ] Authentication
-- [ ] Connect with a database
-- [x] Responsivity
-- [x] Implement cart
-- [ ] Light/Dark theme
-- [ ] Add webhooks
+- [x] Add product to cart
+- [x] Update cart
+- [x] Remove item from cart
+- [x] Stripe API for handle payments
 ---
 
 ## How it works
