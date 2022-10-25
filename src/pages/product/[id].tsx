@@ -11,6 +11,7 @@ import {
 } from '../../styles/product';
 import { useShoppingCart, formatCurrencyString } from 'use-shopping-cart';
 import { IProduct } from '..';
+import toast, { Toaster } from 'react-hot-toast';
 
 interface ProductProps {
   product: IProduct;
@@ -19,8 +20,19 @@ interface ProductProps {
 export default function Product({ product }: ProductProps) {
   const { addItem } = useShoppingCart();
 
+  function handleAddItem(product: IProduct) {
+    toast.success('Item adicionado!', {
+      iconTheme: {
+        primary: '#00B37E',
+        secondary: '#FFFFFF',
+      },
+    });
+    addItem(product);
+  }
+
   return (
     <>
+      <Toaster />
       <Head>
         <title>{`${product.name} | Ignite Shop`}</title>
       </Head>
@@ -37,7 +49,7 @@ export default function Product({ product }: ProductProps) {
             })}
           </span>
           <p>{product.description}</p>
-          <Button onClick={() => addItem(product)}>
+          <Button onClick={() => handleAddItem(product)}>
             Adicionar ao carrinho
           </Button>
         </ProductDetails>

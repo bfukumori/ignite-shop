@@ -11,6 +11,7 @@ import { HomeContainer, Product } from '../styles/home';
 import Head from 'next/head';
 import { Cart } from '../components/Cart';
 import { useShoppingCart, formatCurrencyString } from 'use-shopping-cart';
+import toast, { Toaster } from 'react-hot-toast';
 
 export interface IProduct {
   id: string;
@@ -76,10 +77,17 @@ export default function Home({ products }: HomeProps) {
   function handleAddItem(product: IProduct, e: FormEvent) {
     e.preventDefault();
     addItem(product);
+    toast.success('Item adicionado!', {
+      iconTheme: {
+        primary: '#00B37E',
+        secondary: '#FFFFFF',
+      },
+    });
   }
 
   return (
     <>
+      <Toaster />
       <Head>
         <title>Home | Ignite Shop</title>
       </Head>
