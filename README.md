@@ -49,6 +49,7 @@ Project developed during the ReactJS Ignite Course from [Rocketseat](https://www
 - [x] Update cart
 - [x] Remove item from cart
 - [x] Stripe API for handle payments
+- [x] Persistent state using hook
 ---
 
 ## How it works
